@@ -1,7 +1,86 @@
 .star-rating {
-  line-height: 32px;
-  font-size: 2rem;
+    font-size: 2.5rem;
+    line-height: 3rem;
 }
 
-.star-rating .fa-star-ochre{color: #FDCF75;}
-.star-rating .fa-star-grey{color: #E0E0E0;}
+.product-title {
+    /* The Minimalist Entrepreneur */
+    font-style: normal;
+    font-weight: bold;
+    font-size: 3rem;
+    line-height: 4rem;
+    /* identical to box height */
+    color: #000000;
+}
+
+.button-style {
+    border-radius: 4px;
+}
+
+.hr {
+    color: #898989;
+}
+
+.button-label {
+    /* Label 1 (Bold) */
+
+    font-style: normal;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1.3rem;
+    /* identical to box height */
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    /* 797874 */
+    color: #797874;
+}
+
+.average-rating {
+    /* 3.8 */
+    font-style: normal;
+    font-weight: normal;
+    font-size: 2.5rem;
+    line-height: 3rem;
+    /* identical to box height */
+    color: #000000;
+}
+
+.reviews-display {
+    font-size: 2rem;
+    line-height: 3rem;
+    font-weight: bold;
+}
+
+.review-desc {
+    font-size: 2rem;
+    color: #858585;
+    line-height: 3rem;
+}
+
+.modal-radius {
+    border-radius: 20px !important;
+}
+
+.star-rating .fa-star-ochre {
+    color: #FDCF75;
+}
+
+.star-rating .fa-star-grey {
+    color: #E0E0E0;
+}
+
+.fa-star-ochre {
+    color: #FDCF75;
+}
+
+.fa-star-grey {
+    color: #E0E0E0;
+}
+
+.modal-sub-title{
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: normal;
+}

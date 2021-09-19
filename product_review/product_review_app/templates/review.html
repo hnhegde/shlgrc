@@ -26,26 +26,22 @@
         <div class="col-sm-1 col-md-2"></div>
         <div class="col-sm-10 col-md-8">
             <div class="row mt-5">
-                <div class="col-12 pb-3">
-                <h1><strong>{{ product_title }}</strong></h1>
-                </div>
+                <div class="col-12 pb-3 product-title"> {{ product_title }} </div>
             </div>
             <div class="row">
-                <div class="col-1">
-                    <h3>{{ average_rating }}</h3>
-                </div>
+                <div class="col-2 average-rating"> {{ average_rating }} </div>
                 <div class="col-6">
                     {% for s in "12345" %}
                         {%  if s <= average_rating|floatformat:"0" %}
-                            <span class="fa fa-star" style="color: #FDCF75; font-size: 2rem"></span>
+                            <span class="fa fa-star star-rating fa-star-ochre"></span>
                         {%  else %}
-                            <span class="fa fa-star" style="color: #E0E0E0; font-size: 2rem"></span>
+                            <span class="fa fa-star star-rating fa-star-grey"></span>
                         {%  endif %}
                     {% endfor %}
                 </div>
-                <div class="col-5 text-right">
-                    <button class="btn btn-outline-dark" data-target="#reviewModal" data-toggle="modal" type="button">
-                        Add Review
+                <div class="col-4 text-right pt-2">
+                    <button class="btn btn-outline-dark btn-lg button-style" data-target="#reviewModal" data-toggle="modal" type="button">
+                        <span class="button-label"> Add Review </span>
                     </button>
                 </div>
             </div>
@@ -55,19 +51,20 @@
     <div class="row mt-4">
         <div class="col-sm-1 col-md-2"></div>
         <div class="col-sm-10 col-md-8">
-            <hr/>
-            <h3 class="pt-4 pb-2">Reviews</h3>
+            <hr class="hr"/>
+            <h3 class="pt-4 pb-2 reviews-display">Reviews</h3>
             {% if product_review_list %}
                 <ul class="pl-0">
                 {%  for r in product_review_list %}
                     {% for s in "12345" %}
                         {%  if s|add:"0" <= r.rating %}
-                            <span class="fa fa-star" style="color: #FDCF75; font-size: 2rem"></span>
+                            <span class="fa fa-star fa-star-ochre star-rating"></span>
                         {%  else %}
-                            <span class="fa fa-star" style="color: #E0E0E0; font-size: 2rem"></span>
+                            <span class="fa fa-star fa-star-grey star-rating"></span>
                         {%  endif %}
                     {% endfor %}
-                    <span class="pl-3" style="font-size: 1.5rem"> {{ r.rating }}</span><span style="color: #858585; font-size: 1.5rem">, {{ r.review }}<br/> </span>
+                    <span class="pl-3 review-desc"><strong>{{ r.rating }}</strong></span>
+                    <span class="review-desc">, {{ r.review }}</span><br/>
                 {%  endfor %}
                 </ul>
             {% endif %}
@@ -76,17 +73,17 @@
     </div>
 </div>
 <!-- Modal -->
-<div aria-hidden="true" aria-labelledby="reviewModalLabel" class="modal rounded"
+<div aria-hidden="true" aria-labelledby="reviewModalLabel" class="modal"
      id="reviewModal" role="dialog" tabindex="-1">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog mw-100 w-50" role="document">
         <form action="{% url 'review' 1 %}" method="post">
             {% csrf_token %}
-            <div class="modal-content">
-                <div class="modal-body ml-4">
-                    <h2 class="my-3" id="reviewModalLabel"><strong>What's your rating?</strong> </h2>
+            <div class="modal-content modal-radius">
+                <div class="modal-body ml-4 product-title">
+                    <span class="" id="reviewModalLabel">What's your rating?</span>
                     <div class="form-group">
                         <!-- Ack: https://codepen.io/alisuarez/pen/RWGNLm -->
-                        <label for="ratedStars" style="font-size: 1.5rem">Rating</label>
+                        <label for="ratedStars" class="modal-sub-title">Rating</label>
                         <div class="star-rating my-3">
                             {% for s in "12345" %}
                             <span class="fa fa-star fa-star-grey" data-rating={{s}}></span>
@@ -95,13 +92,13 @@
                                    type="hidden" value="0">
                         </div>
                         <div class="form-group my-5">
-                            <label for="reviewText" style="font-size: 1.5rem">Review</label>
+                            <label for="reviewText" class="modal-sub-title">Review</label>
                             <textarea placeholder="Start typing..." style="border: none" class="form-control pl-0" id="reviewText" name="reviewText" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer ml-4" style="border-top: none">
-                    <button class="btn btn-outline-dark mr-auto" type="submit">Submit review</button>
+                <div class="modal-footer ml-4 pb-5" style="border-top: none">
+                    <button class="btn btn-outline-dark mr-auto button-style" type="submit">Submit review</button>
                 </div>
             </div>
         </form>
