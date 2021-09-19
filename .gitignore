@@ -2,4 +2,4 @@
 product_review/product_review/__pycache__/
 product_review/product_review_app/__pycache__/
 product_review/product_review_app/migrations/__pycache__/
-
+product_review/db.sqlite3

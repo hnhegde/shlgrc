@@ -15,7 +15,7 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link rel="shortcut icon" type="image/x-icon" href="../static/favicon.ico"/>
+    <link href="../static/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
     <title>Product Review</title>
     {% load static %}
 </head>
@@ -50,37 +50,38 @@
     <div class="modal-dialog" role="document">
         <form action="{% url 'review' 1 %}" method="post">
             {% csrf_token %}
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="reviewModalLabel">What's your rating?</h5>
-                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="form-group">
-                    <!-- Ack: https://codepen.io/alisuarez/pen/RWGNLm -->
-                    <label for="ratedStars">Rating</label>
-                    <div class="star-rating">
-                        {% for s in "12345" %}
-                        <span class="fa fa-star-o" data-rating={{s}}></span>
-                        {% endfor %}
-                        <input class="rating-value" name="ratedStars" id="ratedStars"
-                               type="hidden" value="1">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reviewModalLabel">What's your rating?</h5>
+                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <!-- Ack: https://codepen.io/alisuarez/pen/RWGNLm -->
+                        <label for="ratedStars">Rating</label>
+                        <div class="star-rating">
+                            {% for s in "12345" %}
+                            <span class="fa fa-star-o" data-rating={{s}}></span>
+                            {% endfor %}
+                            <input class="rating-value" id="ratedStars" name="ratedStars"
+                                   type="hidden" value="0">
+                        </div>
+                        <div class="form-group">
+                            <label for="reviewText">Review</label>
+                            <textarea class="form-control" id="reviewText" name="reviewText" rows="3"></textarea>
+                        </div>
                     </div>
-                <div class="form-group">
-                    <label for="reviewText">Review</label>
-                    <textarea id="reviewText" name="reviewText" class="form-control" rows="3"></textarea>
                 </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
+                    <button class="btn btn-primary" type="submit">Save changes</button>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
-                <button class="btn btn-primary" type="submit">Save changes</button>
             </div>
         </form>
-        </div>
     </div>
+</div>
 </div>
 <script>
     let $star_rating = $('.star-rating .fa');
