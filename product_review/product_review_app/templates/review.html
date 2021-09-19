@@ -26,11 +26,11 @@
         </div>
         <div class="col-sm-10 col-md-8">
             <div class="row">
-                <h1>The Minimalist Entrepreneur</h1>
+                <h2>The Minimalist Entrepreneur</h2>
             </div>
             <div class="row">
                 <div class="col-1">
-                    <h2>3.8</h2>
+                    <h3>3.8</h3>
                 </div>
                 <div class="col-8"></div>
                 <div class="col-3">
@@ -42,6 +42,30 @@
         </div>
         <div class="col-sm-1 col-md-2">
         </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-1 col-md-2">
+        </div>
+        <div class="col-sm-10 col-md-8">
+            <h3>Reviews</h3>
+            {% if product_review_list %}
+                <ul>
+                {%  for r in product_review_list %}
+                    {% for s in "12345" %}
+                        {%  if s|add:"0" <= r.rating %}
+                            <span class="fa fa-star"></span>
+                        {%  else %}
+                            <span class="fa fa-star-o"></span>
+                        {%  endif %}
+                    {% endfor %}
+                    &nbsp;&nbsp; {{ r.rating }}, {{ r.review }}<br/>
+                {%  endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="col-sm-1 col-md-2">
+        </div>
+
     </div>
 </div>
 <!-- Modal -->
@@ -82,7 +106,6 @@
         </form>
     </div>
 </div>
-</div>
 <script>
     let $star_rating = $('.star-rating .fa');
     let rating_set = 0;
@@ -104,8 +127,5 @@
     });
 
     SetRatingStar();
-    $(document).ready(function () {
-    });
 </script>
-</body>
-</html>
+</body></html>

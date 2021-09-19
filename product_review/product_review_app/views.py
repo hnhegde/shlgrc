@@ -1,10 +1,17 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from .models import Product, ProductReview
+from django.template import loader
+from django.urls import reverse
 
 
 def index(request):
-    return render(request, 'review.html')
+    product_review_list = ProductReview.objects.all()
+    template = loader.get_template('review.html')
+    context = {
+        'product_review_list': product_review_list
+    }
+    return HttpResponse(template.render(context, request))
 
 
 def review(request, product_id):
@@ -19,4 +26,4 @@ def review(request, product_id):
     else:
         print(request.method)
 
-    return HttpResponse("review submitted.")
+    return HttpResponse(reverse('product_review_app:index'))
