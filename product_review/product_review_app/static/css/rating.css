@@ -1,6 +1,7 @@
 .star-rating {
-  line-height:32px;
-  font-size:1.25em;
+  line-height: 32px;
+  font-size: 2rem;
 }
 
-.star-rating .fa-star{color: yellow;}
+.star-rating .fa-star-ochre{color: #FDCF75;}
+.star-rating .fa-star-grey{color: #E0E0E0;}

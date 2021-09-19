@@ -18,89 +18,90 @@
     <link href="../static/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
     <title>Product Review</title>
     {% load static %}
+    <link crossorigin="anonymous" rel="stylesheet" href="{% static 'css/rating.css' %}"
 </head>
 <body>
 <div class="container">
     <div class="row">
-        <div class="col-sm-1 col-md-2">
-        </div>
+        <div class="col-sm-1 col-md-2"></div>
         <div class="col-sm-10 col-md-8">
-            <div class="row">
-                <h2>The Minimalist Entrepreneur</h2>
+            <div class="row mt-5">
+                <div class="col-12 pb-3">
+                <h1><strong>{{ product_title }}</strong></h1>
+                </div>
             </div>
             <div class="row">
                 <div class="col-1">
-                    <h3>3.8</h3>
+                    <h3>{{ average_rating }}</h3>
                 </div>
-                <div class="col-8"></div>
-                <div class="col-3">
-                    <button class="btn btn-light" data-target="#reviewModal" data-toggle="modal" type="button">
+                <div class="col-6">
+                    {% for s in "12345" %}
+                        {%  if s <= average_rating|floatformat:"0" %}
+                            <span class="fa fa-star" style="color: #FDCF75; font-size: 2rem"></span>
+                        {%  else %}
+                            <span class="fa fa-star" style="color: #E0E0E0; font-size: 2rem"></span>
+                        {%  endif %}
+                    {% endfor %}
+                </div>
+                <div class="col-5 text-right">
+                    <button class="btn btn-outline-dark" data-target="#reviewModal" data-toggle="modal" type="button">
                         Add Review
                     </button>
                 </div>
             </div>
         </div>
-        <div class="col-sm-1 col-md-2">
-        </div>
+        <div class="col-sm-1 col-md-2"></div>
     </div>
-    <div class="row">
-        <div class="col-sm-1 col-md-2">
-        </div>
+    <div class="row mt-4">
+        <div class="col-sm-1 col-md-2"></div>
         <div class="col-sm-10 col-md-8">
-            <h3>Reviews</h3>
+            <hr/>
+            <h3 class="pt-4 pb-2">Reviews</h3>
             {% if product_review_list %}
-                <ul>
+                <ul class="pl-0">
                 {%  for r in product_review_list %}
                     {% for s in "12345" %}
                         {%  if s|add:"0" <= r.rating %}
-                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star" style="color: #FDCF75; font-size: 2rem"></span>
                         {%  else %}
-                            <span class="fa fa-star-o"></span>
+                            <span class="fa fa-star" style="color: #E0E0E0; font-size: 2rem"></span>
                         {%  endif %}
                     {% endfor %}
-                    &nbsp;&nbsp; {{ r.rating }}, {{ r.review }}<br/>
+                    <span class="pl-3" style="font-size: 1.5rem"> {{ r.rating }}</span><span style="color: #858585; font-size: 1.5rem">, {{ r.review }}<br/> </span>
                 {%  endfor %}
                 </ul>
             {% endif %}
         </div>
-        <div class="col-sm-1 col-md-2">
-        </div>
-
+        <div class="col-sm-1 col-md-2"></div>
     </div>
 </div>
 <!-- Modal -->
-<div aria-hidden="true" aria-labelledby="reviewModalLabel" class="modal"
+<div aria-hidden="true" aria-labelledby="reviewModalLabel" class="modal rounded"
      id="reviewModal" role="dialog" tabindex="-1">
     <div class="modal-dialog" role="document">
         <form action="{% url 'review' 1 %}" method="post">
             {% csrf_token %}
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="reviewModalLabel">What's your rating?</h5>
-                    <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
+                <div class="modal-body ml-4">
+                    <h2 class="my-3" id="reviewModalLabel"><strong>What's your rating?</strong> </h2>
                     <div class="form-group">
                         <!-- Ack: https://codepen.io/alisuarez/pen/RWGNLm -->
-                        <label for="ratedStars">Rating</label>
-                        <div class="star-rating">
+                        <label for="ratedStars" style="font-size: 1.5rem">Rating</label>
+                        <div class="star-rating my-3">
                             {% for s in "12345" %}
-                            <span class="fa fa-star-o" data-rating={{s}}></span>
+                            <span class="fa fa-star fa-star-grey" data-rating={{s}}></span>
                             {% endfor %}
                             <input class="rating-value" id="ratedStars" name="ratedStars"
                                    type="hidden" value="0">
                         </div>
-                        <div class="form-group">
-                            <label for="reviewText">Review</label>
-                            <textarea class="form-control" id="reviewText" name="reviewText" rows="3"></textarea>
+                        <div class="form-group my-5">
+                            <label for="reviewText" style="font-size: 1.5rem">Review</label>
+                            <textarea placeholder="Start typing..." style="border: none" class="form-control pl-0" id="reviewText" name="reviewText" rows="3"></textarea>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" data-dismiss="modal" type="button">Close</button>
-                    <button class="btn btn-primary" type="submit">Save changes</button>
+                <div class="modal-footer ml-4" style="border-top: none">
+                    <button class="btn btn-outline-dark mr-auto" type="submit">Submit review</button>
                 </div>
             </div>
         </form>
@@ -112,9 +113,9 @@
     let SetRatingStar = function () {
         return $star_rating.each(function () {
             if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
-                return $(this).removeClass('fa-star-o').addClass('fa-star');
+                return $(this).removeClass('fa-star-grey').addClass('fa-star-ochre');
             } else {
-                return $(this).removeClass('fa-star').addClass('fa-star-o');
+                return $(this).removeClass('fa-star-ochre').addClass('fa-star-grey');
             }
         });
     };
